@@ -1,4 +1,6 @@
 import logging
+from aiogram.types import Update
+
 from aiogram.utils.exceptions import (Unauthorized, InvalidQueryID, TelegramAPIError,
                                       CantDemoteChatCreator, MessageNotModified, MessageToDeleteNotFound,
                                       MessageTextIsEmpty, RetryAfter,
@@ -53,6 +55,7 @@ async def errors_handler(update, exception):
         return True
     if isinstance(exception, CantParseEntities):
         logging.exception(f'CantParseEntities: {exception} \nUpdate: {update}')
+        await Update.get_current().message.answer(f"CantParseEntities:{exception}")
         return True
     
     logging.exception(f'Update: {update} \n{exception}')
