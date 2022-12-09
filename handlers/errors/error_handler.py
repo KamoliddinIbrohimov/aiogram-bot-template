@@ -54,5 +54,9 @@ async def errors_handler(update, exception):
     if isinstance(exception, CantParseEntities):
         logging.exception(f'CantParseEntities: {exception} \nUpdate: {update}')
         return True
-    
+
+    if isinstance(exception, TimeoutError):
+        logging.exception(f'TimeoutError: {exception} \nUpdate: {update}')
+        return True
+
     logging.exception(f'Update: {update} \n{exception}')
