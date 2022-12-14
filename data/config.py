@@ -8,3 +8,7 @@ env.read_env()
 BOT_TOKEN = env.str("BOT_TOKEN")  # Bot token
 ADMINS = env.list("ADMINS")  # list of admins
 IP = env.str("ip")  # The host ip address
+
+channels = [
+    # you channels id or username
+]
