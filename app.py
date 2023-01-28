@@ -1,6 +1,8 @@
+import sqlite3
+
 from aiogram import executor
 
-from loader import dp
+from loader import dp, db
 import middlewares, filters, handlers
 from utils.notify_admins import on_startup_notify
 from utils.set_bot_commands import set_default_commands
@@ -10,6 +12,12 @@ async def on_startup(dispatcher):
     # Default commands (/star and /help)
     await set_default_commands(dispatcher)
 
+    # Database connection
+    try:
+        db.create_table_user()
+    except sqlite3.OperationalError as err:
+        print(f"Error: {err}")
+    db.delete_users()
     # Notify the admin that the bot has started
     await on_startup_notify(dispatcher)
 
